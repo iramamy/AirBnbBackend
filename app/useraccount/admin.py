@@ -3,4 +3,14 @@
 from django.contrib import admin
 from . import models
 
-admin.site.register(models.User)
+
+class UserAdmin(admin.ModelAdmin):
+    list_display = [
+        "email",
+        "name",
+        "date_joined",
+        "is_active",
+    ]
+
+
+admin.site.register(models.User, UserAdmin)
