@@ -1,9 +1,7 @@
-from django.urls import path, include
+from django.urls import path
 
-from rest_framework_simplejwt.views import TokenRefreshView, TokenVerifyView
-from dj_rest_auth.registration.views import RegisterView, VerifyEmailView
-from dj_rest_auth.views import LoginView, LogoutView, UserDetailsView
-from rest_framework_simplejwt.views import TokenVerifyView
+from dj_rest_auth.registration.views import RegisterView
+from dj_rest_auth.views import LoginView, LogoutView
 from . import api
 
 urlpatterns = [
