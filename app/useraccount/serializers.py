@@ -12,3 +12,15 @@ class SignUpSerializer(serializers.ModelSerializer):
         fields = [
             "email",
         ]
+
+
+class UserDetailSerializer(serializers.ModelSerializer):
+    """Serializer for user detail objects"""
+
+    class Meta:
+        model = models.User
+        fields = [
+            "id",
+            "name",
+            "avatar_url",
+        ]

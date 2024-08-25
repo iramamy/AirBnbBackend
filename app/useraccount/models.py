@@ -8,6 +8,7 @@ from django.contrib.auth.models import (
     UserManager,
 )
 from django.db import models
+from django.conf import settings
 
 
 class CustomUserManager(UserManager):
@@ -86,3 +87,11 @@ class User(AbstractBaseUser, PermissionsMixin):
     REQUIRED_FIELDS = [
         "name",
     ]
+
+    def avatar_url(self):
+        """Return user avatar url if it exists"""
+
+        if self.avatar:
+            return f"{settings.WEBSITE_URL}{self.avatar.url}"
+        else:
+            return ""

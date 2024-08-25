@@ -15,12 +15,25 @@ from . import forms
 @permission_classes([])
 def properties_list(request):
     properties = models.Property.objects.all()
-    serializer = serializers.PropertySerializers(
+    serializer = serializers.PropertyListSerializers(
         properties,
         many=True,
     )
 
     return Response({"data": serializer.data})
+
+
+@api_view(["GET"])
+@authentication_classes([])
+@permission_classes([])
+def properties_detail(request, pk):
+    property = models.Property.objects.get(pk=pk)
+    serializer = serializers.PropertyDetailSerializers(
+        property,
+        many=False,
+    )
+
+    return Response(serializer.data)
 
 
 @api_view(["POST", "FILES"])
