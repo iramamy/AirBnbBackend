@@ -14,4 +14,20 @@ class PropertyAdmin(admin.ModelAdmin):
     ]
 
 
+class ReservationAdmin(admin.ModelAdmin):
+    list_display = [
+        "property",
+        "start_date",
+        "end_date",
+        "number_of_nights",
+        "guests",
+        "total_price",
+        "created_by",
+        "created_at",
+    ]
+
+    ordering = ["-created_at"]
+
+
 admin.site.register(models.Property, PropertyAdmin)
+admin.site.register(models.Reservation, ReservationAdmin)
