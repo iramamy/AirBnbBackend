@@ -7,6 +7,7 @@ from rest_framework.decorators import (
 
 from . import models
 from . import serializers
+from properties.serializers import ReservationListSerializer
 
 
 @api_view(["GET"])
@@ -20,3 +21,24 @@ def email_list(request):
     )
 
     return Response({"data": serializer.data})
+
+
+@api_view(["GET"])
+@authentication_classes([])
+@permission_classes([])
+def landlord_detail(request, pk):
+    user = models.User.objects.get(pk=pk)
+    serializer = serializers.UserDetailSerializer(
+        user,
+        many=False,
+    )
+
+    return Response(serializer.data)
+
+
+@api_view(["GET"])
+def reservation_list(request):
+    reservation = request.user.reservations.all()
+    serializer = ReservationListSerializer(reservation, many=True)
+
+    return Response(serializer.data)
