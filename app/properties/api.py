@@ -23,7 +23,7 @@ def properties_list(request):
         token = AccessToken(token=token)
         user_id = token.payload["user_id"]
         user = User.objects.get(pk=user_id)
-    except Exception as e:
+    except Exception:
         user = None
 
     favorites = []
