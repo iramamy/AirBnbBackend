@@ -1,4 +1,4 @@
-"""User serializers"""
+"""Serializers for the user api view"""
 
 from rest_framework import serializers
 from . import models

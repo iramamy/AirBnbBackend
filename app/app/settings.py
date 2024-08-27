@@ -81,6 +81,7 @@ INSTALLED_APPS = [
     "core",
     "useraccount",
     "properties",
+    "chat",
     # Third party
     "rest_framework",
     "rest_framework.authtoken",

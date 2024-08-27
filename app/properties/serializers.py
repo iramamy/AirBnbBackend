@@ -1,4 +1,4 @@
-"""Property serializers"""
+"""Serializers for the property api view"""
 
 from rest_framework import serializers
 from useraccount.serializers import UserDetailSerializer
