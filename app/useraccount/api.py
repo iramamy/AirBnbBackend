@@ -38,7 +38,7 @@ def landlord_detail(request, pk):
 
 @api_view(["GET"])
 def reservation_list(request):
-    reservation = request.user.reservations.all()
+    reservation = request.user.reservations.all().order_by("-created_at")
     serializer = ReservationListSerializer(reservation, many=True)
 
     return Response(serializer.data)
