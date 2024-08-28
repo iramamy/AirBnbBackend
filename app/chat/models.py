@@ -20,11 +20,11 @@ class Conversation(models.Model):
     modified_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return f"{self.users.name}"
+        return f"{self.id}"
 
 
 class ConversationMessage(models.Model):
-    """Manager for conversation chat"""
+    """Manager for conversation message"""
 
     id = models.UUIDField(
         primary_key=True,
@@ -54,4 +54,4 @@ class ConversationMessage(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f"{self.sent_to.name} - to - {self.created_by.name}"
+        return f"{self.created_by.name} - to - {self.sent_to.name}"

@@ -20,10 +20,12 @@ class ConversationAdmin(admin.ModelAdmin):
 class ConversationMessageAdmin(admin.ModelAdmin):
     list_display = (
         "conversation",
-        "sent_to",
         "created_by",
+        "sent_to",
         "created_at",
     )
+
+    ordering = ("-created_at",)
 
 
 admin.site.register(models.Conversation, ConversationAdmin)

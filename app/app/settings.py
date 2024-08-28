@@ -42,6 +42,7 @@ SIMPLE_JWT = {
     "SIGNIN_KEY": "acomplexkey",
     "ALGORITHM": "HS512",
 }
+
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 ACCOUNT_USER_MODEL_USERNAME_FIELD = None
 ACCOUNT_EMAIL_REQUIRED = True
@@ -71,6 +72,7 @@ REST_AUTH = {
 # Application definition
 
 INSTALLED_APPS = [
+    "daphne",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -125,6 +127,7 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = "app.wsgi.application"
+ASGI_APPLICATION = "app.asgi.application"
 
 
 # Database
@@ -188,3 +191,10 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 
 AUTH_USER_MODEL = "useraccount.User"
+
+
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels.layers.InMemoryChannelLayer",
+    }
+}

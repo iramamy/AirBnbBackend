@@ -124,7 +124,6 @@ def book_property(request, pk):
         return Response({"success": True})
 
     except Exception as e:
-        print("Error", e)
 
         return Response({"success": False})
 
