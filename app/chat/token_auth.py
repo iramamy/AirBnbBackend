@@ -25,7 +25,9 @@ class TokenAuthMiddleware(BaseMiddleware):
         super().__init__(inner)
 
     async def __call__(self, scope, receive, send):
-        query = dict((x.split("=") for x in scope["query_string"].decode().split("&")))
+        query = dict(
+            (x.split("=") for x in scope["query_string"].decode().split("&")),
+        )
 
         token_key = query.get("token")
         scope["user"] = await get_user(token_key)
