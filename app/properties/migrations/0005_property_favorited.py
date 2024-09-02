@@ -7,14 +7,16 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('properties', '0004_alter_reservation_property'),
+        ("properties", "0004_alter_reservation_property"),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='property',
-            name='favorited',
-            field=models.ManyToManyField(blank=True, related_name='favorites', to=settings.AUTH_USER_MODEL),
+            model_name="property",
+            name="favorited",
+            field=models.ManyToManyField(
+                blank=True, related_name="favorites", to=settings.AUTH_USER_MODEL
+            ),
         ),
     ]

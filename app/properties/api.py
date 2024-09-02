@@ -139,3 +139,56 @@ def toggle_favorite(request, pk):
         property.favorited.add(request.user)
 
         return Response({"is_favorite": True})
+
+
+@api_view(["POST", "FILES"])
+def edit_property(request):
+
+    if request.method == "POST":
+        property_id = request.data.get("property_id")
+        country = request.data.get("country")
+        category = request.data.get("category")
+        title = request.data.get("title")
+        description = request.data.get("description")
+        price_per_night = request.data.get("price_per_night")
+        bedrooms = request.data.get("bedrooms")
+        guests = request.data.get("guests")
+        image = request.FILES.get("image_url")
+
+        print("country", country)
+        print("category", category)
+        print("title", title)
+        print("description", description)
+        print("price_per_night", price_per_night)
+        print("bedrooms", bedrooms)
+        print("guests", guests)
+        print("image", image)
+
+        property, created = models.Property.objects.get_or_create(
+            id=property_id,
+            defaults={
+                "country": country,
+                "category": category,
+                "title": title,
+                "description": description,
+                "price_per_night": price_per_night,
+                "bedrooms": bedrooms,
+                "guests": guests,
+                "image": image,
+            },
+        )
+
+        if not created:
+            property.country = country
+            property.category = category
+            property.title = title
+            property.description = description
+            property.price_per_night = price_per_night
+            property.bedrooms = bedrooms
+            property.guests = guests
+            property.image = image
+            property.save()
+
+        return Response({"success": True})
+    else:
+        return Response({"success": False})

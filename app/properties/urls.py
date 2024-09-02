@@ -21,4 +21,5 @@ urlpatterns = [
         api.toggle_favorite,
         name="api_toggle_favorite",
     ),
+    path("editproperty/", api.edit_property, name="api_edit_property"),
 ]
