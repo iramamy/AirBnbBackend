@@ -4,13 +4,14 @@ from rest_framework import serializers
 from . import models
 
 
-class SignUpSerializer(serializers.ModelSerializer):
+class UserListSerializer(serializers.ModelSerializer):
     """Sign up object serializer"""
 
     class Meta:
         model = models.User
         fields = [
             "email",
+            "name",
         ]
 
 
@@ -22,5 +23,6 @@ class UserDetailSerializer(serializers.ModelSerializer):
         fields = [
             "id",
             "name",
+            "email",
             "avatar_url",
         ]

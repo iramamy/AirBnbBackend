@@ -81,7 +81,7 @@ def create_property(request):
 
         return Response({"success": True})
     else:
-        print("Form errors", form.errors, form.non_field_errors)
+
         return Response(
             {"errros": form.errors.as_json()},
             status=status.HTTP_400_BAD_REQUEST,
