@@ -4,6 +4,7 @@ from rest_framework.decorators import (
     authentication_classes,
     permission_classes,
 )
+from django.contrib.auth.hashers import check_password
 
 from . import models
 from . import serializers
@@ -77,9 +78,29 @@ def edit_user_profile(request):
         if not created:
             user.email = email
             user.name = name
-            user.avatar = avatar
+            if avatar:
+                user.avatar = avatar
             user.save()
 
         return Response({"success": True})
     else:
         return Response({"success": False})
+
+
+@api_view(["POST"])
+def change_password(request):
+    user = request.user
+    user_profile = models.User.objects.get(pk=user.id)
+
+    if request.method == "POST":
+        oldPassword = request.data.get("oldPassword")
+        password = request.data.get("password")
+
+        if not check_password(oldPassword, user_profile.password):
+            return Response({"success": False})
+
+        else:
+            user.set_password(password)
+            user.save()
+            return Response({"success": True})
+    return Response({"success": False})

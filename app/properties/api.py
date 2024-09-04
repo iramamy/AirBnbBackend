@@ -155,15 +155,6 @@ def edit_property(request):
         guests = request.data.get("guests")
         image = request.FILES.get("image_url")
 
-        print("country", country)
-        print("category", category)
-        print("title", title)
-        print("description", description)
-        print("price_per_night", price_per_night)
-        print("bedrooms", bedrooms)
-        print("guests", guests)
-        print("image", image)
-
         property, created = models.Property.objects.get_or_create(
             id=property_id,
             defaults={
@@ -186,9 +177,24 @@ def edit_property(request):
             property.price_per_night = price_per_night
             property.bedrooms = bedrooms
             property.guests = guests
-            property.image = image
+
+            if image:
+                property.image = image
+
             property.save()
 
         return Response({"success": True})
+
     else:
+        return Response({"success": False})
+
+
+@api_view(["GET"])
+def delete_property(request, pk):
+    property = models.Property.objects.get(pk=pk)
+    try:
+        property.delete()
+        return Response({"success": True})
+
+    except property.DoesNotExist:
         return Response({"success": False})

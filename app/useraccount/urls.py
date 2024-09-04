@@ -13,4 +13,5 @@ urlpatterns = [
     path("myreservations/", api.reservation_list, name="api_reservation_list"),
     path("user/<uuid:pk>/", api.user_detail, name="api_user_detail"),
     path("editprofile/", api.edit_user_profile, name="api_edit_user_profile"),
+    path("changepassword/", api.change_password, name="api_change_password"),
 ]
