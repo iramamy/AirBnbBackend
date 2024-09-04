@@ -2,6 +2,8 @@ from django.urls import path
 
 from dj_rest_auth.registration.views import RegisterView
 from dj_rest_auth.views import LoginView, LogoutView
+from dj_rest_auth.jwt_auth import get_refresh_view
+
 from . import api
 
 urlpatterns = [
@@ -14,4 +16,5 @@ urlpatterns = [
     path("user/<uuid:pk>/", api.user_detail, name="api_user_detail"),
     path("editprofile/", api.edit_user_profile, name="api_edit_user_profile"),
     path("changepassword/", api.change_password, name="api_change_password"),
+    path("token/refresh/", get_refresh_view().as_view(), name="token_refresh"),
 ]

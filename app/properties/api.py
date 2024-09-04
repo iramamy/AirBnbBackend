@@ -32,12 +32,47 @@ def properties_list(request):
     is_favorites = request.GET.get("is_favorites", "")
     landlord_id = request.GET.get("landlord_id", "")
 
+    checkin_date = request.GET.get("checkIn", "")
+    checkout_date = request.GET.get("checkOut", "")
+    country = request.GET.get("country", "")
+    category = request.GET.get("category", "")
+    bedrooms = request.GET.get("numBedrooms", "")
+    guests = request.GET.get("numGuests", "")
+
     # filter
     if landlord_id:
         properties = properties.filter(landlord_id=landlord_id)
 
     if is_favorites:
         properties = properties.filter(favorited__in=[user])
+
+    if checkin_date and checkout_date:
+        exact_matches = models.Reservation.objects.filter(
+            start_date=checkin_date
+        ) | models.Reservation.objects.filter(end_date=checkout_date)
+
+        overlap_matches = models.Reservation.objects.filter(
+            start_date__lte=checkin_date, end_date__gte=checkout_date
+        )
+
+        all_matches_id = []
+
+        for reservation in exact_matches | overlap_matches:
+            all_matches_id.append(reservation.property_id)
+
+        properties = properties.exclude(id__in=all_matches_id)
+
+    if country:
+        properties = properties.filter(country=country)
+
+    if category and category != "undefined":
+        properties = properties.filter(category=category)
+
+    if bedrooms:
+        properties = properties.filter(bedrooms=bedrooms)
+
+    if guests:
+        properties = properties.filter(guests=guests)
 
     serializer = serializers.PropertyListSerializers(
         properties,
