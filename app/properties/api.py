@@ -233,3 +233,14 @@ def delete_property(request, pk):
 
     except property.DoesNotExist:
         return Response({"success": False})
+
+
+@api_view(["GET"])
+def delete_reservation(request, pk):
+    reservation = models.Reservation.objects.get(pk=pk)
+    try:
+        reservation.delete()
+        return Response({"success": True})
+
+    except reservation.DoesNotExist:
+        return Response({"success": False})

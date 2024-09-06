@@ -27,4 +27,9 @@ urlpatterns = [
         api.delete_property,
         name="api_delete_property",
     ),
+    path(
+        "deletereservation/<uuid:pk>/",
+        api.delete_reservation,
+        name="api_delete_reservation",
+    ),
 ]
